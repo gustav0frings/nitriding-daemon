@@ -27,6 +27,7 @@ func runNetworking(c *Config, stop chan struct{}) {
 	var err error
 	for {
 		if err = setupNetworking(c, stop); err == nil {
+			fmt.Println("Networking setup error: ", err)
 			return
 		}
 		time.Sleep(time.Second)
