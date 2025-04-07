@@ -24,11 +24,11 @@ var (
 // runNetworking calls the function that sets up our networking environment.
 // If anything fails, we try again after a brief wait period.
 func runNetworking(c *Config, stop chan struct{}) {
-	fmt.Println("Running networking")
+	elog.Println("Starting networking setup.")
 	var err error
 	for {
 		if err = setupNetworking(c, stop); err == nil {
-			fmt.Println("Networking setup error: ", err)
+			elog.Println("networking error: ", err)
 			return
 		}
 		time.Sleep(time.Second)
