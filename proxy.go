@@ -28,9 +28,11 @@ func runNetworking(c *Config, stop chan struct{}) {
 	var err error
 	for {
 		if err = setupNetworking(c, stop); err == nil {
-			elog.Println("networking error: ", err)
+			elog.Println("networking successful ")
 			return
 		}
+		elog.Println("--------------------------------")
+		elog.Println("networking failed: ", err)
 		time.Sleep(time.Second)
 	}
 }
@@ -94,9 +96,10 @@ func setupNetworking(c *Config, stop chan struct{}) error {
 	elog.Println("Started goroutines to forward traffic.")
 	select {
 	case err := <-errCh:
+		elog.Println("Error in goroutines: ", err)
 		return err
 	case <-stop:
-		elog.Printf("Shutting down networking.")
+		elog.Println("Shutting down networking.")
 		return nil
 	}
 }
